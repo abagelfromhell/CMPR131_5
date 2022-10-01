@@ -21,7 +21,7 @@ int main()
 		switch (menuOption())
 		{
 		case 0: exit(1);
-		case 1: system("cls"); ; vectorMenu(); cout << "\n\t\t"; system("pause"); system("cls"); break;
+		case 1: system("cls"); vectorMenu(); cout << "\n\t\t"; system("pause"); system("cls"); break;
 		case 2: system("cls"); listSwitch(); cout << "\n\t\t"; system("pause"); system("cls"); break;
 		case 3: system("cls"); listOrContainerSwitch();; cout << "\n\t\t"; system("pause"); system("cls"); break;
 		default: cout << "\nERROR: Invalid option.\n"; break;
