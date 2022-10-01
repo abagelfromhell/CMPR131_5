@@ -15,13 +15,14 @@ char vectorMenu();
 
 void listSwitch();
 char listMenu();
-void readFile(list<student>& studentList, bool addBack);
 
 void listOrContainerSwitch();
 char listOrContainerMenu();
 
 template<class t>
-void display(t studentList, bool showIt, bool reverseIterator, string structureName);
+void structureReadFile(t& studentList, bool addBack, string structureName);
+template<class t>
+void display(t studentList, bool showIt, bool reverseIterator);
 template<class t>
 void structureClear(t& studentList, string structureName);
 template<class t>
@@ -276,7 +277,27 @@ void listSwitch()
 		}
 		case 'C':
 		{
-			readFile(studentList, false);
+			fstream file;
+			string fileName = "input.dat";
+
+			file.open(fileName, ios::in || ios::beg);
+			if ((file.fail()))
+			{
+				cout << "\n\t\tERROR: File, " << fileName << ", cannot be found.\n\n\t\t";
+				system("pause");
+			}
+			else
+			{
+				while (file.peek() != EOF)
+				{
+					student holder;
+					holder.readFile(file);
+					studentList.push_front(holder);
+
+				}
+				cout << "\n\t\tThe " << structureName << " now has " << studentList.size() << " elements.\n\t";
+			}
+			file.close();
 			break;
 		}
 		case 'D':
@@ -290,7 +311,7 @@ void listSwitch()
 			
 			studentList.pop_front();
 			cout << "\n\n\t\tThe list now has " << studentList.size() << " elements.\n";
-			display(studentList, false, false, structureName);
+			display(studentList, false, false);
 			break;
 		}
 		case 'E':
@@ -306,9 +327,7 @@ void listSwitch()
 		}
 		case 'F':
 		{
-			readFile(studentList, true);
-
-			
+			structureReadFile(studentList, false, structureName);
 			break;
 		}
 		case 'G':
@@ -322,7 +341,7 @@ void listSwitch()
 
 			studentList.pop_back();
 			cout << "\n\n\t\tThe " << structureName << " now has " << studentList.size() << " elements.\n";
-			display(studentList, false, true, structureName);
+			display(studentList, false, true);
 			break;
 		}
 		case 'H':
@@ -355,7 +374,7 @@ void listSwitch()
 				break;
 			}
 			cout << "\n\t\tUsing being() and end(), the " << structureName << " contains: ";
-			display(studentList, true, false, structureName);
+			display(studentList, true, false);
 			break;
 		}
 		case 'L':
@@ -376,7 +395,7 @@ void listSwitch()
 				break;
 			}
 			cout << "\n\t\tUsing rbegin and rend(), the " << structureName << " contains: ";
-			display(studentList, true, true, structureName);
+			display(studentList, true, true);
 			break;
 		}
 		case 'O':
@@ -412,7 +431,7 @@ void listSwitch()
 			}
 			studentList.sort();
 			cout << "\n\t\tSorted list: ";
-			display(studentList, true, false, structureName);
+			display(studentList, true, false);
 			break;
 		}
 		case '0':
@@ -503,7 +522,8 @@ void listOrContainerSwitch()
 	} while (true);
 }
 
-void readFile(list<student>& studentList, bool addBack)
+template<class t>
+void structureReadFile(t& studentList, bool addBack, string structureName)
 {
 	fstream file;
 	string fileName = "input.dat";
@@ -520,24 +540,17 @@ void readFile(list<student>& studentList, bool addBack)
 		{
 			student holder;
 			holder.readFile(file);
-			if (addBack)
-			{
-				studentList.push_back(holder);
-			}
-			else
-			{
-				studentList.push_front(holder);
-			}
+			studentList.push_back(holder);
 
 		}
-		cout << "\n\t\tThe list now has " << studentList.size() << " elements.\n\t";
+		cout << "\n\t\tThe " << structureName << " now has " << studentList.size() << " elements.\n\t";
 	}
 	file.close();
 
 }
 
 template<class t>
-void display(t studentList, bool showIt, bool reverseIterator, string structureName)
+void display(t studentList, bool showIt, bool reverseIterator)
 {
 	
 	if (reverseIterator)
