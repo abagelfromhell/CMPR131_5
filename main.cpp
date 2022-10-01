@@ -1,5 +1,9 @@
 #include <iostream>
 #include "input.h"
+#include "student.h"
+#include <vector>
+#include <list>
+#include <algorithm>
 
 using namespace std;
 
@@ -21,7 +25,7 @@ int main()
 		switch (menuOption())
 		{
 		case 0: exit(1);
-		case 1: system("cls"); vectorMenu(); cout << "\n\t\t"; system("pause"); system("cls"); break;
+		case 1: system("cls"); vectorSwitch(); cout << "\n\t\t"; system("pause"); system("cls"); break;
 		case 2: system("cls"); listSwitch(); cout << "\n\t\t"; system("pause"); system("cls"); break;
 		case 3: system("cls"); listOrContainerSwitch();; cout << "\n\t\t"; system("pause"); system("cls"); break;
 		default: cout << "\nERROR: Invalid option.\n"; break;
@@ -46,6 +50,8 @@ int menuOption()
 
 void vectorSwitch()
 {
+	cout << "\n\tVectors are sequence containers representing arrays that can change in size";
+
 	do
 	{
 		switch (vectorMenu())
@@ -53,126 +59,126 @@ void vectorSwitch()
 		case 'A':
 		{
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'B':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'C':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'D':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'E':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'F':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'G':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'H':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'I':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'J':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'K':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'L':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'M':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'N':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'P':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'Q':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'R':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'S':
 		{
 
 
-			cout << "\n";
+			
 			break;
 		}
 		case '0':
@@ -190,7 +196,7 @@ void vectorSwitch()
 
 char vectorMenu()
 {
-	cout << "\n\tVectors are sequence containers representing arrays that can change in size";
+	
 	cout << "\n\n\t1> Vector's member functions";
 
 	cout << "\n\t" << string(76, char(205));
@@ -222,133 +228,137 @@ char vectorMenu()
 
 void listSwitch()
 {
+	cout << "\n\tLists are sequence containers that allow constant time insert and erase operations anywhere within the";
+	cout << "\n\tsequence, and iteration in both directions.";
+	list<student> aa;
 	do
 	{
 		switch (listMenu())
 		{
 		case 'A':
 		{
-			
-			cout << "\n";
+			aa.clear();
+			cout << "\n\t\tThe list has been cleared.";
 			break;
 		}
 		case 'B':
 		{
+			int numElements = inputInteger("\n\t\tEnter the new size(1..100): ");
+			aa.resize(numElements);
+			cout << "\n\t\tThe list has been resized to " << numElements << " elements.";
 			
-			
-			cout << "\n";
 			break;
 		}
 		case 'C':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'D':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'E':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'F':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'G':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'H':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'I':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'J':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'K':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'L':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'M':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'N':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'P':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'Q':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'R':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case 'S':
 		{
 			
 
-			cout << "\n";
+			
 			break;
 		}
 		case '0':
@@ -367,8 +377,7 @@ void listSwitch()
 
 char listMenu()
 {
-	cout << "\n\tLists are sequence containers that allow constant time insert and erase operations anywhere within the";
-	cout << "\n\tsequence, and iteration in both directions.";
+	
 	cout << "\n\n\t2> List container";
 	cout << "\n\t" << string(76, char(205));
 	cout << "\n\t\tA> clear() - Destroys all elements from the list> ";
