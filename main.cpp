@@ -20,7 +20,7 @@ void listOrContainerSwitch();
 char listOrContainerMenu();
 
 template<class t>
-void structureReadFile(t& studentList, bool addBack, string structureName);
+void structureReadFile(t& studentList, string structureName);
 template<class t>
 void display(t studentList, bool showIt, bool reverseIterator);
 template<class t>
@@ -327,7 +327,7 @@ void listSwitch()
 		}
 		case 'F':
 		{
-			structureReadFile(studentList, false, structureName);
+			structureReadFile(studentList, structureName);
 			break;
 		}
 		case 'G':
@@ -523,7 +523,7 @@ void listOrContainerSwitch()
 }
 
 template<class t>
-void structureReadFile(t& studentList, bool addBack, string structureName)
+void structureReadFile(t& studentList, string structureName)
 {
 	fstream file;
 	string fileName = "input.dat";
