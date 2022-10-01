@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <string>
+#include <fstream>
+
 using namespace std;
 class student
 {
@@ -16,16 +19,19 @@ public:
 	{
 		name = newName;
 	}
+	
 	//mutator 
 	void setGradeLevel(string newGradeLevel)
 	{
 		gradeLevel = newGradeLevel;
 	}
+	
 	//mutator 
 	void setGPA(double newGPA)
 	{
 		GPA = newGPA;
 	}
+	
 	//overloading operator <<
 	friend ostream& operator <<(ostream& outs, const student& obj)
 	{
@@ -48,5 +54,22 @@ public:
 			return true;
 		else
 			return false;
+	}
+	void readFile(fstream& file)
+	{
+		string holder;
+
+		getline(file, holder, ',');
+		setName(holder);
+		holder.clear();
+
+		getline(file, holder, ',');
+		setGradeLevel(holder);
+		holder.clear();
+
+		getline(file, holder);
+		setGPA(stod(holder));
+		holder.clear();
+
 	}
 };
