@@ -19,29 +19,50 @@ char listMenu();
 void listOrContainerSwitch();
 char listOrContainerMenu();
 
+//Preconditons: studentList must be vector or list of student objects, structureName must be the name of the container
+//Postconditions: will read from input.dat into container elements
 template<class t>
 void structureReadFile(t& studentList, string structureName);
+//Preconditons: studentList must be vector or list of student objects, showIt is true if memory location is to be displayed false otherwise, reverseIterator is true if display begins with .rbegin() and end with .rend() false if display beings with .begin() and .end()
+//Postconditions: displays container elements formatted by arguments
 template<class t>
 void display(t studentList, bool showIt, bool reverseIterator);
+//Preconditons: studentList must be vector or list of student objects, structureName must be the name of the container
+//Postconditions: clears containers
 template<class t>
 void structureClear(t& studentList, string structureName);
+//Preconditons: studentList must be vector or list of student objects, structureName must be the name of the container
+//Postconditions: resizes container to users choice
 template<class t>
 void structureResize(t& studentList, string structureName);
+//Preconditons: studentList must be vector or list of student objects, structureName must be the name of the container
+//Postconditions: displays first element adress and element information
 template<class t>
 void structureBegin(t studentList, string structureName);
+//Preconditons: studentList must be vector or list of student objects, structureName must be the name of the container
+//Postconditions: displays address of the end of the container
 template<class t>
 void structureEnd(t studentList, string structureName);
+//Preconditons: studentList must be vector or list of student objects, structureName must be the name of the container
+//Postconditions: displays address of the last element and element information
 template<class t>
 void structureRBegin(t studentList, string structureName);
+//Preconditons: studentList must be vector or list of student objects, structureName must be the name of the container
+//Postconditions: displays address of the beginning of the container
 template<class t>
 void structureREnd(t studentList, string structureName);
+//Preconditons: studentList must be vector or list of student objects, structureName must be the name of the container
+//Postconditions: erases first element of the container
 template<class t>
 void stuctureErase(t& studentList, string structureName);
+//Preconditons: studentList must be vector or list of student objects, structureName must be the name of the container
+//Postconditions: erases all elements of the container
 template<class t>
 void stuctureEraseAll(t& studentList, string structureName);
+//Preconditons: studentList must be vector or list of student objects, structureName must be the name of the container
+//Postconditions: inserts element at the beginning of the container
 template<class t>
 void structureInsert(t& studentList, string structureName);
-
 
 int main()
 {
@@ -495,32 +516,70 @@ char listOrContainerMenu()
 
 void listOrContainerSwitch()
 {
+	list<int> intList;
+
 	do
 	{
+		bool exists = false;
 		switch (listOrContainerMenu())
 		{
 		case 'A':
-			cout << "\n";
+		{
+			intList.push_back(inputInteger("\n\t\tAdd an integer: "));
 			break;
+		}
 		case 'B':
-			cout << "\n";
+		{
+			int oldSize = intList.size();
+			int searchThis = inputInteger("\n\t\tDelete an integer: ");
+			intList.remove(searchThis);
+			int newSize = intList.size();
+			if (newSize == oldSize)
+			{
+				cout << "\n\t\tList does not contain " << searchThis << "\n";
+			}
 			break;
+		}
 		case 'C':
+			cout << "\n\t\tContainer: ";
+			for (auto it = intList.begin(); it != intList.end(); it++)
+			{
+				cout << *it << " ";
+			}
 			cout << "\n";
 			break;
 		case 'D':
-			cout << "\n";
+		{
+			intList.sort();
+			int counter = 0;
+			int last = intList.front();
+			for (auto it = intList.begin(); it != intList.end(); it++)
+			{
+				if (last == *(it))
+				{
+					counter++;
+				}
+				else
+				{
+					cout << "\n\t\t" << last << ": " << counter;
+					counter = 1;
+					last = *it;
+				}
+			}
+			cout << "\n\t\t" << last << ": " << counter << "\n";
 			break;
+		}
 		case '0':
 		{
-
 			return;
 		}
 		default:
+			cout << "\n\t\t\tERROR: Invalid option.\n\t";
 			break;
 		}
 	} while (true);
 }
+
 
 template<class t>
 void structureReadFile(t& studentList, string structureName)
@@ -571,8 +630,6 @@ void display(t studentList, bool showIt, bool reverseIterator)
 	}
 	else
 	{
-		
-
 		for (auto it = studentList.begin(); it != studentList.end(); it++)
 		{
 			if (showIt)
