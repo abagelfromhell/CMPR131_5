@@ -55,6 +55,8 @@ public:
 		else
 			return false;
 	}
+	//Precondition: fstream file must hold student records for class student
+	//Postcondition: will read line from file and store it into student members
 	void readFile(fstream& file)
 	{
 		string holder;
