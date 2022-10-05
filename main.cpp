@@ -36,7 +36,7 @@ void structureClear(t& studentList, string structureName);
 template<class t>
 void structureResize(t& studentList, string structureName);
 //Preconditons: studentList must be vector or list of student objects, structureName must be the name of the container
-//Postconditions: displays first element adress and element information
+//Postconditions: displays first element address and element information
 template<class t>
 void structureBegin(t studentList, string structureName);
 //Preconditons: studentList must be vector or list of student objects, structureName must be the name of the container
@@ -63,6 +63,19 @@ void stuctureEraseAll(t& studentList, string structureName);
 //Postconditions: inserts element at the beginning of the container
 template<class t>
 void structureInsert(t& studentList, string structureName);
+
+//Preconditions: N/A
+//Postconditions: displays the index and values of all elements in the vector
+void displayVec(vector<student> studentVec);
+//Preconditions: N/A
+//Postconditions: reserves a number of elements for the vector
+void reserveVec(vector<student>& studentVec);
+//Preconditions: studentVec must not be empty
+//Postconditions: removes the last element of the vector
+void pop_backVec(vector<student>& studentVec);
+//Preconditions: studentVec must not be empty
+//Postconditions: displays the information of the vector element at the specified index
+void indexVec(vector<student>& studentVec);
 
 int main()
 {
@@ -98,137 +111,144 @@ void vectorSwitch()
 {
 	cout << "\n\tVectors are sequence containers representing arrays that can change in size";
 
+	vector<student> studentVec;
+	string structureName = "vector";
 	do
 	{
 		switch (vectorMenu())
 		{
 		case 'A':
 		{
-
-			
+			structureClear(studentVec, structureName);
 			break;
 		}
 		case 'B':
 		{
-
-
-			
+			reserveVec(studentVec);
 			break;
 		}
 		case 'C':
 		{
-
-			
+			structureResize(studentVec, structureName);
 			break;
 		}
 		case 'D':
 		{
-
-
-			
+			structureReadFile(studentVec, structureName);
+			displayVec(studentVec);
 			break;
 		}
 		case 'E':
 		{
-
-
-			
+			pop_backVec(studentVec);
+			cout << "\n\n\t\tThe vector now has " << studentVec.size() << " elements.\n";
+			displayVec(studentVec);
 			break;
 		}
 		case 'F':
 		{
+			if (studentVec.empty())
+			{
+				cout << "\n\t\tThe vector is empty.";
+				break;
+			}
 
+			cout << "\n\tThe element from the front of the vector: [0] " << studentVec.front();
 
-			
 			break;
 		}
 		case 'G':
 		{
+			if (studentVec.empty())
+			{
+				cout << "\n\t\tThe vector is empty.";
+				break;
+			}
 
+			cout << "\n\tThe element from the back of the vector: [" << studentVec.size() - 1 << "] " << studentVec.back();
 
-			
 			break;
 		}
 		case 'H':
 		{
-
-
-			
+			indexVec(studentVec);
 			break;
 		}
 		case 'I':
 		{
-
-
-			
+			structureBegin(studentVec, structureName);
 			break;
 		}
 		case 'J':
 		{
-
-
-			
+			structureEnd(studentVec, structureName);
 			break;
 		}
 		case 'K':
 		{
-
-
-			
+			if (studentVec.empty())
+			{
+				cout << "\n\t\tThe " << structureName << " is empty.";
+				break;
+			}
+			cout << "\n\t\tUsing being() and end(), the " << structureName << " contains: ";
+			display(studentVec, true, false);
 			break;
 		}
 		case 'L':
 		{
-
-
-			
+			structureRBegin(studentVec, structureName);
 			break;
 		}
 		case 'M':
 		{
-
-
-			
+			structureREnd(studentVec, structureName);
 			break;
 		}
 		case 'N':
 		{
-
-
-			
+			if (studentVec.empty())
+			{
+				cout << "\n\t\tThe " << structureName << " is empty.";
+				break;
+			}
+			cout << "\n\t\tUsing rbegin and rend(), the " << structureName << " contains: ";
+			display(studentVec, true, true);
 			break;
 		}
 		case 'O':
 		{
-
+			stuctureErase(studentVec, structureName);
 			break;
 		}
 		case 'P':
 		{
-
-
-			
+			stuctureEraseAll(studentVec, structureName);
 			break;
 		}
 		case 'Q':
 		{
-
-
-			
+			structureInsert(studentVec, structureName);
 			break;
 		}
 		case 'R':
 		{
-
-
-			
+			vector<student> secondVec;
+			studentVec.swap(secondVec);
+			cout << "\n\t\tvector (v2) is initially empty";
+			cout << "\n\n\t\tvector (v1) is empty after swapped with vector (v2).";
+			displayVec(secondVec);
 			break;
 		}
 		case 'S':
 		{
-
-
-			
+			if (studentVec.empty())
+			{
+				cout << "\n\t\tThe vector is empty.";
+				break;
+			}
+			sort(studentVec.begin(), studentVec.end());
+			displayVec(studentVec);
 			break;
 		}
 		case '0':
@@ -244,11 +264,45 @@ void vectorSwitch()
 	} while (true);
 }
 
+void displayVec(vector<student> studentVec)
+{
+	for (int i = 0; i < studentVec.size(); i++)
+	{
+		cout << "\n\t\t[" << i << "] " << studentVec[i];
+	}
+}
+
+void reserveVec(vector<student>& studentVec)
+{
+	int numElements = inputInteger("\n\t\tEnter the capacity(1..100): ");
+	studentVec.reserve(numElements);
+	cout << "\n\t\tThe vector has been reserved " << numElements << " elements.";
+}
+
+void pop_backVec(vector<student>& studentVec)
+{
+	if (studentVec.empty())
+	{
+		cout << "\n\t\tThe vector is empty.";
+		return;
+	}
+	cout << "\n\t\tElement, [" << studentVec.size() - 1 << "]: " << studentVec[studentVec.size() - 1] << " has been removed from the vector.";
+
+	studentVec.pop_back();
+}
+
+void indexVec(vector<student>& studentVec)
+{
+	int maxIndex = studentVec.size() - 1;
+	cout << "Enter the index(0.." << maxIndex << "):";
+	int index = inputInteger(" ", 0, maxIndex);
+	cout << "\n\t\tvector.at(" << index << "): " << studentVec[index];
+	cout << "\n\t\tvector[" << index << "]: " << studentVec[index];
+}
+
 char vectorMenu()
 {
-	
 	cout << "\n\n\t1> Vector's member functions";
-
 	cout << "\n\t" << string(76, char(205));
 	cout << "\n\t\tA> clear() - Removes all elements from the vector (which are destroyed) ";
 	cout << "\n\t\tB> reserve(n) - Requests that the vector capacity be at least enough to contain n elements ";
@@ -288,7 +342,7 @@ void listSwitch()
 		{
 		case 'A':
 		{
-			structureClear(studentList, structureName);	
+			structureClear(studentList, structureName);
 			break;
 		}
 		case 'B':
@@ -329,7 +383,7 @@ void listSwitch()
 				break;
 			}
 			cout << "\n\t\tFirst element, (" << studentList.front() << "), has been removed from the list";
-			
+
 			studentList.pop_front();
 			cout << "\n\n\t\tThe list now has " << studentList.size() << " elements.\n";
 			display(studentList, false, false);
@@ -457,7 +511,6 @@ void listSwitch()
 		}
 		case '0':
 		{
-			
 			return;
 		}
 		default:
@@ -471,7 +524,7 @@ void listSwitch()
 
 char listMenu()
 {
-	
+
 	cout << "\n\n\t2> List container";
 	cout << "\n\t" << string(76, char(205));
 	cout << "\n\t\tA> clear() - Destroys all elements from the list> ";
@@ -580,7 +633,6 @@ void listOrContainerSwitch()
 	} while (true);
 }
 
-
 template<class t>
 void structureReadFile(t& studentList, string structureName)
 {
@@ -611,12 +663,12 @@ void structureReadFile(t& studentList, string structureName)
 template<class t>
 void display(t studentList, bool showIt, bool reverseIterator)
 {
-	
+
 	if (reverseIterator)
 	{
 		for (auto it = studentList.rbegin(); it != studentList.rend(); it++)
 		{
-		
+
 			if (showIt)
 			{
 				cout << "\n\t\t\t" << &it << " (" << *it << ")";
@@ -646,7 +698,7 @@ void display(t studentList, bool showIt, bool reverseIterator)
 }
 
 template<class t>
-void structureClear(t &studentList, string structureName)
+void structureClear(t& studentList, string structureName)
 {
 	studentList.clear();
 	cout << "\n\t\tThe " << structureName << " has been cleared.";
@@ -657,7 +709,7 @@ void structureResize(t& studentList, string structureName)
 {
 	int numElements = inputInteger("\n\t\tEnter the new size(1..100): ");
 	studentList.resize(numElements);
-	cout << "\n\t\tThe " << structureName <<" has been resized to " << numElements << " elements.";
+	cout << "\n\t\tThe " << structureName << " has been resized to " << numElements << " elements.";
 }
 
 template<class t>
