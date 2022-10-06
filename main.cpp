@@ -1,3 +1,7 @@
+// Names: Tiffany Nguyen and Albert Mondragon
+// Date: 10/5/22
+// Description: CMPR131: Assignment 5
+
 #include <iostream>
 #include "input.h"
 #include "student.h"
@@ -63,7 +67,6 @@ void stuctureEraseAll(t& studentList, string structureName);
 //Postconditions: inserts element at the beginning of the container
 template<class t>
 void structureInsert(t& studentList, string structureName);
-
 //Preconditions: N/A
 //Postconditions: displays the index and values of all elements in the vector
 void displayVec(vector<student> studentVec);
@@ -264,41 +267,6 @@ void vectorSwitch()
 	} while (true);
 }
 
-void displayVec(vector<student> studentVec)
-{
-	for (int i = 0; i < studentVec.size(); i++)
-	{
-		cout << "\n\t\t[" << i << "] " << studentVec[i];
-	}
-}
-
-void reserveVec(vector<student>& studentVec)
-{
-	int numElements = inputInteger("\n\t\tEnter the capacity(1..100): ");
-	studentVec.reserve(numElements);
-	cout << "\n\t\tThe vector has been reserved " << numElements << " elements.";
-}
-
-void pop_backVec(vector<student>& studentVec)
-{
-	if (studentVec.empty())
-	{
-		cout << "\n\t\tThe vector is empty.";
-		return;
-	}
-	cout << "\n\t\tElement, [" << studentVec.size() - 1 << "]: " << studentVec[studentVec.size() - 1] << " has been removed from the vector.";
-
-	studentVec.pop_back();
-}
-
-void indexVec(vector<student>& studentVec)
-{
-	int maxIndex = studentVec.size() - 1;
-	cout << "Enter the index(0.." << maxIndex << "):";
-	int index = inputInteger(" ", 0, maxIndex);
-	cout << "\n\t\tvector.at(" << index << "): " << studentVec[index];
-	cout << "\n\t\tvector[" << index << "]: " << studentVec[index];
-}
 
 char vectorMenu()
 {
@@ -524,7 +492,6 @@ void listSwitch()
 
 char listMenu()
 {
-
 	cout << "\n\n\t2> List container";
 	cout << "\n\t" << string(76, char(205));
 	cout << "\n\t\tA> clear() - Destroys all elements from the list> ";
@@ -606,6 +573,7 @@ void listOrContainerSwitch()
 			intList.sort();
 			int counter = 0;
 			int last = intList.front();
+			cout << "\n\t\tContainer:";
 			for (auto it = intList.begin(); it != intList.end(); it++)
 			{
 				if (last == *(it))
@@ -691,7 +659,6 @@ void display(t studentList, bool showIt, bool reverseIterator)
 			else
 			{
 				cout << "\n\t\t\t" << *it;
-
 			}
 		}
 	}
@@ -800,4 +767,40 @@ void structureInsert(t& studentList, string structureName)
 	holder.setGPA(inputDouble("\n\t\tEnter his/her GPA (0.0..4.0): ", 0.0, 4.0));
 	cout << "\n\t\tThe new element has been inserted after the begin iterator.";
 	studentList.insert(studentList.begin(), holder);
+}
+
+void displayVec(vector<student> studentVec)
+{
+	for (int i = 0; i < studentVec.size(); i++)
+	{
+		cout << "\n\t\t[" << i << "] " << studentVec[i];
+	}
+}
+
+void reserveVec(vector<student>& studentVec)
+{
+	int numElements = inputInteger("\n\t\tEnter the capacity(1..100): ");
+	studentVec.reserve(numElements);
+	cout << "\n\t\tThe vector has been reserved " << numElements << " elements.";
+}
+
+void pop_backVec(vector<student>& studentVec)
+{
+	if (studentVec.empty())
+	{
+		cout << "\n\t\tThe vector is empty.";
+		return;
+	}
+	cout << "\n\t\tElement, [" << studentVec.size() - 1 << "]: " << studentVec[studentVec.size() - 1] << " has been removed from the vector.";
+
+	studentVec.pop_back();
+}
+
+void indexVec(vector<student>& studentVec)
+{
+	int maxIndex = studentVec.size() - 1;
+	cout << "Enter the index(0.." << maxIndex << "):";
+	int index = inputInteger(" ", 0, maxIndex);
+	cout << "\n\t\tvector.at(" << index << "): " << studentVec[index];
+	cout << "\n\t\tvector[" << index << "]: " << studentVec[index];
 }
